@@ -8,13 +8,28 @@ Make real-time display of other languages in sektch file
 ## Introduction
 - Start Generate
 ![Generate](./assets/generate.png)
-- Input one Language code
+<!-- - Input one Language code
 ![Edit-language](./assets/edit-language.png)
 - Generate Success
-![Genetate Success](./assets/genetate-success.png)
+![Genetate Success](./assets/genetate-success.png) -->
 - Translate
 ![Translate](./assets/translate.png)
-- Select Language
-![Select language](./assets/select-language.png)
+<!-- - Select Language
+![Select language](./assets/select-language.png) -->
 - Translate Success
 ![Success](./assets/success.png)
+
+## Extension function
+You may share a language file for multiple files. At this time, you can add a config.json (fixed name) file in the file directory. Its format is
+```
+{
+  "发现": {
+    "en": "Discover",
+    "zh": "发现"
+  },
+  "keys": [
+    "en",
+    "zh"
+  ]
+}
+```
