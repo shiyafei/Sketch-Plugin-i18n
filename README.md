@@ -20,7 +20,7 @@ Make real-time display of other languages in sektch file
 ![Success](./assets/success.png)
 
 ## Extension function
-You may share a language file for multiple files. At this time, you can add a config.json (fixed name) file in the file directory. Its format is
+You may share a language file for multiple files. At this time, you can add a config.json (fixed name) file in the file directory. Its format is like
 ```
 {
   "发现": {
