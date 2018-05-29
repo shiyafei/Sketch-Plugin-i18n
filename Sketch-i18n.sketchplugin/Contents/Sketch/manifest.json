@@ -21,7 +21,7 @@
   "menu" : {
     "items" : [
       "com.shiyafei.sketch.action.generate",
-      "com.shiyafei.sketch..action.translate"
+      "com.shiyafei.sketch.action.translate"
     ],
     "title" : "Sketch-I18N"
   },
