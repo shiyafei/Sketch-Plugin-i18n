@@ -38,8 +38,10 @@ function translatePage(page, jsonObject, languageKey){
         var stringValue = unescape(textLayer.name());
         if(jsonObject[stringValue]){
             var localeObject = jsonObject[stringValue];
-            textLayer.setStringValue(localeObject[languageKey]);
-            [textLayer adjustFrameToFit];
+            if (languageKey in Object.keys(localeObject)) {
+                textLayer.setStringValue(localeObject[languageKey]);
+                [textLayer adjustFrameToFit];
+            }
         }
     }
     var needOverrides = []
@@ -59,11 +61,14 @@ function translatePage(page, jsonObject, languageKey){
         }
     }
     // 遍历配置文件，国际化
+    log(JSON.stringify(needValues))
     for (var jkey in jsonObject) {
         for(subjkey in jsonObject[jkey]) {
             var index = needValues.indexOf(jsonObject[jkey][subjkey])
-            if (index != -1) {
-                needOverrides[index].value = jsonObject[jkey][languageKey]
+            if (index != -1 && languageKey in jsonObject[jkey]) {
+                var m = jsonObject[jkey][languageKey]
+                var value = [NSString stringWithString: m]
+                needOverrides[index].value = value
             }
         }
     }
