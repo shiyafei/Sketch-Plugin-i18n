@@ -54,7 +54,7 @@ function translatePage(page, jsonObject, languageKey){
         for (var j = 0; j < overrideValues.length; j++) {
             var value = overrideValues[j].value()
             var overrideName = overrideValues[j].overrideName()
-            if (value.class() === __NSCFString && ![overrideName containsString:@"_symbolID"]) {
+            if ([overrideName containsString:@"_stringValue"]) {
                 needOverrides.push(overrideValues[j])
                 needValues.push(unescape(value))
             }
