@@ -19,7 +19,7 @@ function translateFile(context, filePath){
 
     if ([languageDialog runModal] == NSAlertFirstButtonReturn) {
 		var keyIndex = [comboxBox indexOfSelectedItem];
-        var currentPage = context.document.currentPage();
+        // var currentPage = context.document.currentPage();
         var allPages = context.document.pages()
         for(var i = 0 ;i < allPages.length; i++) {
             translatePage(allPages[i],currentJsonObject,keys[keyIndex]);
@@ -33,8 +33,7 @@ function translatePage(page, jsonObject, languageKey){
     var layersMap = getTextLayersOfPage(page);
     var symbolLayers = layersMap['symbolLayers']
     var textLayers = layersMap['textLayers']
-    for (var i = 0; i < textLayers.length; i++) {
-        var textLayer = textLayers[i];
+    textLayers.map(textLayer => {
         var stringValue = unescape(textLayer.name());
         if(jsonObject[stringValue]){
             var localeObject = jsonObject[stringValue];
@@ -43,12 +42,11 @@ function translatePage(page, jsonObject, languageKey){
                 [textLayer adjustFrameToFit];
             }
         }
-    }
+    })
     var needOverrides = []
     var needValues = []
     // 过滤出需要转换字符串的symbol
-    for (var i = 0; i < symbolLayers.length; i++) {
-        var symbolLayer = symbolLayers[i];
+    symbolLayers.map(symbolLayer => {
         var overrides = [symbolLayer overrides]
         var overrideValues = [symbolLayer overrideValues]
         for (var j = 0; j < overrideValues.length; j++) {
@@ -59,17 +57,16 @@ function translatePage(page, jsonObject, languageKey){
                 needValues.push(unescape(value))
             }
         }
-    }
+    })
     // 遍历配置文件，国际化
-    log(JSON.stringify(needValues))
-    for (var jkey in jsonObject) {
-        for(subjkey in jsonObject[jkey]) {
+    Object.keys(jsonObject).map(jkey => {
+        Object.keys(jsonObject[jkey]).map(subjkey => {
             var index = needValues.indexOf(jsonObject[jkey][subjkey])
             if (index != -1 && languageKey in jsonObject[jkey]) {
                 var m = jsonObject[jkey][languageKey]
                 var value = [NSString stringWithString: m]
                 needOverrides[index].value = value
             }
-        }
-    }
+        })
+    })
 }
